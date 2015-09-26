@@ -32,7 +32,7 @@ The list of variables that will be repeated, the field of query should be insert
 You can click in copy...  send to clipboard (ctrl+c) the end query. 
 
 # SQLIN
-Descrição em portugês:
+Descrição em português:
 O SQLIN é um projeto simples usando windows.h para fazer a consulta SQL usando o parâmetro 'IN' e um de lista. Usando c / c ++ para fazer a janela e uma consulta, e codeblocks / GCC para compilar em Windows® plataforma.
 
 Este programa é usado para fazer uma consulta simples em SQL, por exemplo:
