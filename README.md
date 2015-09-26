@@ -1,6 +1,6 @@
 # SQLIN
 English Readme:
-The SQLin is a simple project using windows.h for make the SQL query using the 'IN' parameter and a of list. Using c/c++ to make the window and  a query, and codeblocks/GCC to compile in Windows® plataform.
+The SQLin is a simple project using windows.h for make the SQL query using the 'IN' parameter and a of list. Using c/c++ to make the window and  a query, and download Windows® compiled version: https://github.com/rafaelduartenom/SQLIN/releases
 
 This program is used to make a simple query in SQL, example:
 
