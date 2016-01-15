@@ -8,8 +8,6 @@
 #include <windows.h>
 #include "sstream"
 
-
-
 using namespace std;    // Or using std::string;
 #define BUTTONOK 10
 #define BUTTONCOPY 10
@@ -101,9 +99,9 @@ void DrawComponents(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 CreateWindowEx (
 0,
 "STATIC",
-"Parâmetros que serão Repetidos",
+"List of Values",
 WS_VISIBLE|WS_CHILD|WS_BORDER,
-30, 20, 220, 19,
+30, 20, 90, 19,
 hwnd,
 NULL,
 g_inst,
@@ -120,13 +118,13 @@ NULL,
 g_inst,
 NULL
 );
-
+SendMessage(Cateto1, EM_LIMITTEXT, 0, 0L);
 CreateWindowEx (
 0,
 "STATIC",
-"Parâmetro de Consulta",
+"Field",
 WS_CHILD|WS_VISIBLE|WS_BORDER,
-300, 20, 150, 19,
+300, 20, 36, 19,
 hwnd,
 NULL,
 g_inst,
@@ -148,7 +146,7 @@ NULL
 ButtonOk = CreateWindowEx (
 0,
 "BUTTON",
-"Gerar",
+"Generate",
 WS_VISIBLE|WS_CHILD,
 300, 130, 90, 20,
 hwnd,
@@ -161,7 +159,7 @@ NULL
 ButtonCopy = CreateWindowEx (
 0,
 "BUTTON",
-"Copiar Saída",
+"Output Copy",
 WS_VISIBLE|WS_CHILD,
 300, 200, 110, 20,
 hwnd,
@@ -173,7 +171,7 @@ NULL
 ButtonClean = CreateWindowEx (
 0,
 "BUTTON",
-"Limpar tudo",
+"Clear All",
 WS_VISIBLE|WS_CHILD,
 300, 230, 110, 20,
 hwnd,
@@ -185,9 +183,9 @@ NULL
 CreateWindowEx (
 0,
 "STATIC",
-"Saída",
+"Output",
 WS_VISIBLE|WS_CHILD|WS_BORDER,
-30, 180, 40, 20,
+30, 170, 46, 20,
 hwnd,
 NULL,
 g_inst,
@@ -228,7 +226,6 @@ wincl.lpfnWndProc = WindowProcedure;
 wincl.style = CS_DBLCLKS;
 wincl.cbSize = sizeof (WNDCLASSEX);
 wincl.hIcon = LoadIcon (NULL, IDI_ASTERISK);
-wincl.hIconSm = LoadIcon (NULL, IDI_ASTERISK);      // Janela com icone default do Windows
 wincl.hCursor = LoadCursor (NULL, IDC_ARROW);          //Cursor default
 wincl.lpszMenuName = NULL;
 wincl.cbClsExtra = 0;
@@ -241,7 +238,7 @@ return 0;
 hwnd = CreateWindowEx (               // Criação da janela
 0,
 "WindowsAppl",                 // Indicação da classe da janela
-"Consulta SQL com repetição IN 1.2",                 // Nome da janela
+"Query SQL using IN and list v1.2",                 // Nome da janela
 WS_OVERLAPPED|WS_CAPTION|WS_SYSMENU|WS_MINIMIZEBOX,           // Estilo da janela sem maximizar e alterar tamanho WS_OVERLAPPEDWINDOW -- user total control
 350,                               // x em relação ao desktop
 250,                                 // y em relação ao desktop
@@ -278,12 +275,12 @@ case WM_COMMAND:
      if ((HWND)lParam == ButtonOk)
 {
 int len = SendMessage((HWND)Cateto1, EM_GETLINECOUNT, 0, 0); // conta o numero de linhas das variaveis
-static char saida01[50000],saida02[50000], saida11[30000];
+static char saida01[5000000],saida02[5000000], saida11[3000000];
 static char saida02_bkp[50000] = "";
 char *saida011;
 char *saida012;
-GetWindowText((HWND)Cateto1,saida01,20000); // pega o texto e transfere para variavel que posso controlar
-GetWindowText((HWND)Cateto2,saida11,10000);// pega o texto e transfere para variavel que posso controlar
+GetWindowText((HWND)Cateto1,saida01,2000000); // pega o texto e transfere para variavel que posso controlar
+GetWindowText((HWND)Cateto2,saida11,1000000);// pega o texto e transfere para variavel que posso controlar
 saida011 = const_cast<char*>(saida01);// Converte a variavel armazenada no GetWindowText para ponteiro (endereço de memoria)
 saida012 = const_cast<char*>(saida11);// Converte a variavel armazenada no GetWindowText para ponteiro (endereço de memoria)
 char *linha[9000]; // variavel que ira contar por linha cada elemento inserido
@@ -296,7 +293,7 @@ linha [i]= strtok(saida011, "\r\n");
     linha[i] = strtok (NULL,"\r\n");
         if (linha[i]==NULL)
     {
-    MessageBox( hwnd, "Erro não pode existir espaços entre ou no final das linhas!", "Erro lista repetidos", MB_OK );
+    MessageBox( hwnd, "Can't make the query with blank spaces between lines!", "Error in the list", MB_OK );
     exit(1);
     }
    }
@@ -350,7 +347,7 @@ strncpy ( saida02, saida02_bkp, sizeof(saida02_bkp) );
     EmptyClipboard();
     SetClipboardData(CF_TEXT, hMem);
     CloseClipboard();
- MessageBox( hwnd, "Copiado Para a Memória", "Ctrl+C", MB_OK );
+ MessageBox( hwnd, "Result was copy to memory", "Ctrl+C", MB_OK );
  }
  if ((HWND)lParam == ButtonClean)
  {
@@ -360,7 +357,7 @@ strncpy ( saida02, saida02_bkp, sizeof(saida02_bkp) );
  SetWindowTextA( Saida2, vazio );
  SetWindowTextA( Cateto1, vazio );
  SetWindowTextA( Cateto2, vazio );
- MessageBox( hwnd, "Todos os campos foram apagados com sucesso", "Clean all values", MB_OK );
+ MessageBox( hwnd, "Clean all values !", "Clean all values", MB_OK );
 
  }
 }
